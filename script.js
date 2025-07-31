@@ -1,15 +1,11 @@
-const questions = [
-  {
-    question: "色相の異なる色を隣り合うものどうし環状に並べたものは？",
-    choices: ["反復", "仮数部", "色相環", "著作権（財産権）"],
-    answer: "色相環"
-  },
-  {
-    question: "著作権法で保護されないものはどれ？",
-    choices: ["小説", "プログラム", "アイデア", "写真"],
-    answer: "アイデア"
-  }
-];
+let questions = [];
+
+fetch('questions.json')
+  .then(response => response.json())
+  .then(data => {
+    questions = data;
+    loadQuestion(currentIndex);
+  });
 
 let currentIndex = 0;
 
@@ -48,6 +44,3 @@ function loadNextQuestion() {
   }
   loadQuestion(currentIndex);
 }
-
-// 初期表示
-loadQuestion(currentIndex);
