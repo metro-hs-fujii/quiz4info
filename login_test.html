@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Microsoft ログインテスト</title>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Microsoftでログイン</h1>
+    <button onclick="signInWithMicrosoft()">ログイン</button>
+
+    <p id="user-info"></p>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCbEExkec_G68pY1C6MWl_R0yeAxjQdVMI",
+            authDomain: "quiz-app-mslogin.firebaseapp.com",
+            projectId: "quiz-app-mslogin",
+            storageBucket: "quiz-app-mslogin.firebasestorage.app",
+            messagingSenderId: "938962109914",
+            appId: "1:938962109914:web:5f19084dce889c6e216ce3"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        // Microsoftログイン処理
+        function signInWithMicrosoft() {
+            const provider = new firebase.auth.OAuthProvider('microsoft.com');
+
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    document.getElementById("user-info").textContent =
+                        `こんにちは、${user.displayName} さん（${user.email}）`;
+                })
+                .catch((error) => {
+                    console.error("ログインエラー:", error);
+                    alert("ログインに失敗しました: " + error.message);
+                });
+        }
+    </script>
+
+</body>
+
+</html>
