@@ -1,21 +1,89 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>確認問題クイズ</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header>
+    <!-- ハンバーガーメニュー -->
+    <div id="menu-toggle">&#9776;</div>
+  
+    <!-- 見出し中央 -->
     <div class="header-title">情報科　確認問題</div>
+  
+    <!-- バージョン右側 -->
     <div class="header-version">ver.1.0</div>
+  
+    <!-- メニュー項目（非表示→クリックで表示） -->
+    <nav id="menu-dropdown" class="hidden">
+      <ul>
+        <li onclick="navigateTo('quiz')">クイズに戻る</li>
+        <li onclick="navigateTo('ranking')">ランキング</li>
+      </ul>
+    </nav>
   </header>
+
+  <div id="status-bar">
+    Nickname: <span id="nickname"></span> |
+    回答数: <span id="answerCount">0</span> |
+    正答数: <span id="correctCount">0</span> |
+    正答率: <span id="accuracyRate">0</span>% |
+    スコア: <span id="score">0</span>
+  </div>
+
   <main id="quiz-container">
-    <h1 id="question"></h1>
-    <div id="choices"></div>
-    <button id="next-btn" onclick="loadNextQuestion()">次の問題へ</button>
+    <div id="login-screen" class="screen active">
+      <h1>Microsoftでログイン</h1>
+      <button onclick="signInWithMicrosoft()">ログイン</button>
+    </div>
+
+    <div id="quiz-screen" class="screen">
+      <h1 id="question"></h1>
+      <div id="choices"></div>
+      <button id="next-btn" onclick="loadNextQuestion()">次の問題へ</button>
+      <button id="ranking-btn" onclick="showScreen('ranking-screen')" style="display: none;">
+        ランキングに進む
+      </button>
+    </div>
+
+
+    <div id="ranking-screen" class="screen">
+      <h2>スコアランキング</h2>
+      <table id="score-table">
+        <thead>
+          <tr>
+            <th>順位</th>
+            <th>ニックネーム</th>
+            <th>スコア</th>
+            <th>正答率</th>
+            <th>回答数</th>
+            <th>利用回数</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-body">
+          <!-- ランキングデータ -->
+        </tbody>
+      </table>
+    </div>
   </main>
+
+
+  <footer id="user-id-footer">
+    ID: <span id="uid"></span>
+  </footer>
+
   <script src="script.js"></script>
 </body>
+
 </html>

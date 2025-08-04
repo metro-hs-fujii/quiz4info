@@ -10,6 +10,9 @@ html, body {
   font-family: sans-serif;
   background: #f4f4f4;
   font-size: clamp(14px, 2.5vw, 18px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* スクルールの有効可 */
 }
 
 header {
@@ -18,44 +21,100 @@ header {
   color: white;
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
+  gap: 1rem;
 }
 
 .header-title {
-  font-size: 1.2em;
+  font-size: 2em;
   font-weight: bold;
+  width: 100%;
+  text-align: center;
 }
 
 .header-version {
+  margin-left: auto;
   font-size: 0.9em;
+  padding-right: 1rem;
+}
+
+#status-bar {
+  background-color: #e0e0e0;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* フッター */
+footer#user-id-footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #f1f1f1;
+  font-size: 0.9rem;
+  color: #333;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
 }
 
 main#quiz-container {
   flex: 1;
-  background: white;
-  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 800px;
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  overflow-y: auto;           /* ✅ 必要に応じてスクロール */
+  padding-bottom: 100px;      /* ✅ 次ボタンのための余白 */
+
 }
 
-h1 {
-  font-size: 1.4em;
+.screen {
+  display: none;
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.screen.active {
+  display: flex;
+}
+
+#question {
+  font-size: 1.8em;
   margin-bottom: 1rem;
+  text-align: center;
+}
+
+#choices {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0 auto;
 }
 
 .choice-btn {
-  display: block;
   width: 100%;
-  padding: 0.75rem;
+  padding: 1rem;
   margin: 0.5rem 0;
-  font-size: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   background: #007bff;
@@ -77,18 +136,74 @@ h1 {
 }
 
 #next-btn {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  display: block;
+  margin: 0 auto;
+  margin-top: 2rem;
+  padding: 0.75rem 2rem;
   font-size: 1em;
   cursor: pointer;
 }
 
+
+/* ナビゲーション  */
+#menu-toggle {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+#menu-dropdown {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  color: #0056b3;
+  font-weight: bold;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#menu-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#menu-dropdown li {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+#menu-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+#menu-dropdown.show {
+  display: block;
+}
+
+
 @media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
+  .header-title {
+    text-align: center;
+    width: 100%;
+    font-size: 2em;
   }
+
   .header-version {
-    align-self: flex-end;
+    font-size: 0.8em;
+    padding-right: 0.5rem;
+  }
+
+  #question {
+    font-size: 1.6em;
+  }
+
+  .choice-btn {
+    font-size: 1.3em;
   }
 }
+
