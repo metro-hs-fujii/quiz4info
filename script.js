@@ -18,8 +18,9 @@ let sessionStats = {
   correctCount: 0
 };
 let highScore = 0; // ハイスコア表示用
+let HasAnswered = false;
 
-// Microsoft アカウントでログイン
+// Microsoft アカウントでログイン　→ ユーザー情報取得・保存・ステータス初期化まで
 function signInWithMicrosoft() {
   const provider = new firebase.auth.OAuthProvider('microsoft.com');
 
@@ -196,6 +197,7 @@ function updateStats(isCorrect) {
   }
 
   // users にハイスコアが更新された場合のみ記録
+  if (!currentUser) return; // ← ユーザーログインがなかったら処理を抜ける
   const userRef = db.collection("users").doc(currentUser.uid);
   userRef.get().then(doc => {
     const data = doc.data();
