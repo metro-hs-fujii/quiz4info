@@ -137,7 +137,8 @@ function showQuestion(questionData) {
   const rankingBtn = document.getElementById('ranking-btn');
 
   // 表示クリア
-  questionElem.textContent = `${currentQuestionIndex + 1}. ${questionData.question}`;
+  //questionElem.textContent = `${currentQuestionIndex + 1}. ${questionData.question}`;
+  questionElem.innerHTML = `${currentQuestionIndex + 1}. ${questionData.question.replace(/\n/g, '<br>')}`;
   choicesElem.innerHTML = '';
 
   // 選択肢ボタン作成
